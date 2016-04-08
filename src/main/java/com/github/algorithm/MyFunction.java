@@ -3,7 +3,7 @@ package com.github.algorithm;
 /**
  * Copyright (C) Coderion sp. z o.o
  */
-public interface Function {
-
-    double compute(double[] parameters);
+@FunctionalInterface
+public interface MyFunction {
+    double f(double[] x);
 }

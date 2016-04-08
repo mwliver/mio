@@ -1,15 +1,10 @@
-package com.github.model;
+package com.github.algorithm;
 
-import com.github.algorithm.Function;
-import com.github.algorithm.Parser;
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 
-/**
- * Copyright (C) Coderion sp. z o.o
- */
 public class ParserImpl implements Parser {
 
     private String function;
@@ -20,16 +15,16 @@ public class ParserImpl implements Parser {
         this.paramsCount = paramsCount;
     }
 
-    public Function getFunction() {
+    public MyFunction getFunction() {
         final ParserImpl self = this;
 
-        Function function = new Function() {
-            String function = self.function;
+        return new MyFunction() {
+            String func = self.function;
             int paramsCount = self.paramsCount;
 
-            public double compute(double[] parameters) {
+            public double f(double[] parameters) {
                 Calculable calculable = null;
-                ExpressionBuilder expressionBuilder = new ExpressionBuilder(function);
+                ExpressionBuilder expressionBuilder = new ExpressionBuilder(func);
                 try {
                     String[] params = new String[paramsCount];
                     for (int i = 0; i < paramsCount; i++) {
@@ -39,16 +34,20 @@ public class ParserImpl implements Parser {
                     for (int i = 0; i < paramsCount; i++) {
                         calculable.setVariable("x" + i, parameters[i]);
                     }
-                } catch (UnknownFunctionException e) {
-                    e.printStackTrace();
-                } catch (UnparsableExpressionException e) {
+                } catch (UnknownFunctionException | UnparsableExpressionException e) {
                     e.printStackTrace();
                 }
 
-                return calculable.calculate();
+                double res;
+
+                if (calculable != null) {
+                    res = calculable.calculate();
+                } else {
+                    res = Double.NaN;
+                }
+
+                return res;
             }
         };
-
-        return function;
     }
 }
