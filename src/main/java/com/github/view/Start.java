@@ -14,6 +14,7 @@ public class Start {
             }
             application.setSize(600, 600);
             application.setVisible(true);
+            application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         });
     }
 }
