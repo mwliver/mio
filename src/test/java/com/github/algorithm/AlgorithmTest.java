@@ -1,12 +1,10 @@
 package com.github.algorithm;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Copyright (C) Coderion sp. z o.o
- */
-public class AlgorithmTest extends Assert {
+import static org.junit.Assert.assertTrue;
+
+public class AlgorithmTest {
 
     @Test
     public void algorithmTest_TC001() {
@@ -20,7 +18,9 @@ public class AlgorithmTest extends Assert {
         double leftLimit = -10000;
         double rightLimit = 10000;
 
-        double[] result = SimulatedAnnealing.simulatedAnnealing(myFunction, cooling, temperature, precision, dimencion, leftLimit, rightLimit);
+        SimulatedAnnealing sa = new SimulatedAnnealing();
+
+        double[] result = sa.simulatedAnnealing(myFunction, cooling, temperature, precision, dimencion, leftLimit, rightLimit);
 
         assertTrue(9900 <= Math.abs(result[0]));
         assertTrue(9900 <= Math.abs(result[1]));

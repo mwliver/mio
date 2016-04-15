@@ -1,11 +1,21 @@
 package com.github.algorithm;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.function.BiFunction;
 
 public class SimulatedAnnealing {
 
-    public static double[] simulatedAnnealing(MyFunction function, Cooling step, double T, double precision, int dimension, double leftLimit, double rightLimit) {
+    private Queue<double[]> values;
+
+    public Queue<Double> getValues() {
+        return null;
+    }
+
+    public double[] simulatedAnnealing(MyFunction function, Cooling step, double T, double precision, int dimension, double leftLimit, double rightLimit) {
+        values = new LinkedList<>();
+
         MyRandom r = new MyRandom(new Random());
 
         double[] current = new double[dimension];
@@ -41,6 +51,11 @@ public class SimulatedAnnealing {
             if (function.f(current) < function.f(best)) {
                 System.arraycopy(current, 0, best, 0, dimension);
             }
+
+            double[] temp = new double[dimension];
+            System.arraycopy(best, 0, temp, 0, dimension);
+
+            values.add(temp);
         }
     }
 }
