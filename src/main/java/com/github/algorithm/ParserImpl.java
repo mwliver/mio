@@ -50,4 +50,9 @@ public class ParserImpl implements Parser {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        return function;
+    }
 }

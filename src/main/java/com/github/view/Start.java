@@ -14,7 +14,7 @@ public class Start {
                 e.printStackTrace();
             }
             application.setSize(700, 500);
-            application.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width  - application.getSize().width) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - application.getSize().height) / 2);
+            application.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - application.getSize().width) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - application.getSize().height) / 2);
             application.setVisible(true);
             application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         });
