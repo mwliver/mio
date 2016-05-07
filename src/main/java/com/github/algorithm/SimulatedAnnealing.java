@@ -9,8 +9,8 @@ public class SimulatedAnnealing {
 
     private Queue<double[]> values;
 
-    public Queue<Double> getValues() {
-        return null;
+    public Queue<double[]> getValues() {
+        return values;
     }
 
     public double[] simulatedAnnealing(MyFunction function, Cooling step, double T, double precision, int dimension, double leftLimit, double rightLimit) {
