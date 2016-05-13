@@ -3,10 +3,17 @@ package com.github.view;
 import com.github.algorithm.MyFunction;
 import com.github.algorithm.SimulatedAnnealing;
 import org.apache.commons.lang.ArrayUtils;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Queue;
 import java.util.concurrent.ExecutionException;
 
 public class FunctionPanel {
@@ -71,6 +78,40 @@ public class FunctionPanel {
 
                                 labStatusResult.setText(sb.toString());
                                 tfResult.setText(res.toString());
+
+                                XYSeries bestsSeries = new XYSeries("Najlepszy");
+                                Queue<double[]> bests = sa.getBests();
+
+                                for (int i = 0; i < bests.size(); i++) {
+                                    bestsSeries.add(i, item.getFunction().f(bests.poll()));
+                                }
+
+                                XYSeries currnentsSeries = new XYSeries("Obecny");
+                                Queue<double[]> currents = sa.getCurrents();
+
+                                for (int j = 0; j < currents.size(); j++) {
+                                    currnentsSeries.add(j, item.getFunction().f(currents.poll()));
+                                }
+
+                                XYSeriesCollection dataset = new XYSeriesCollection();
+                                dataset.addSeries(bestsSeries);
+//                                dataset.addSeries(currnentsSeries);
+
+                                JFreeChart chart = ChartFactory.createXYLineChart(
+                                        "Wykres zbieżności",
+                                        "iteracja",
+                                        "wartość",
+                                        dataset,
+                                        PlotOrientation.VERTICAL,
+                                        true,
+                                        true,
+                                        false
+                                );
+
+                                ChartFrame chartFrame = new ChartFrame("Wykres zbieżności", chart, true);
+                                chartFrame.setExtendedState(chartFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                                chartFrame.setVisible(true);
+
                             } catch (InterruptedException | ExecutionException ex) {
                                 labStatusResult.setText("Błąd");
                                 tfResult.setText(ex.toString());
