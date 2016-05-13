@@ -71,13 +71,13 @@ public class FunctionPanel {
                                 sb.append("<html>");
 
                                 for (int i = 0; i < args.length; i++) {
-                                    sb.append(String.format("x[%d] = %s<br>", i, args[i]));
+                                    sb.append(String.format("x[%d] = %f<br>", i, args[i]));
                                 }
 
                                 sb.append("</html>");
 
                                 labStatusResult.setText(sb.toString());
-                                tfResult.setText(res.toString());
+                                tfResult.setText(String.format("%f", res.doubleValue()));
 
                                 XYSeries bestsSeries = new XYSeries("Najlepszy");
                                 Queue<double[]> bests = sa.getBests();
@@ -135,7 +135,7 @@ public class FunctionPanel {
         spRightLimit.setModel(new SpinnerNumberModel(0, -10000, 10000, 0.01));
     }
 
-    public JComponent $$$getRootComponent$$$() {
+    public JComponent getPanel() {
         return panel;
     }
 
