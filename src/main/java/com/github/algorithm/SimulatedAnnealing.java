@@ -7,14 +7,21 @@ import java.util.function.BiFunction;
 
 public class SimulatedAnnealing {
 
-    private Queue<double[]> values;
+    private Queue<double[]> bests;
 
-    public Queue<double[]> getValues() {
-        return values;
+    private Queue<double[]> currents;
+
+    public Queue<double[]> getBests() {
+        return bests;
+    }
+
+    public Queue<double[]> getCurrents() {
+        return currents;
     }
 
     public double[] simulatedAnnealing(MyFunction function, Cooling step, double T, double precision, int dimension, double leftLimit, double rightLimit) {
-        values = new LinkedList<>();
+        bests = new LinkedList<>();
+        currents = new LinkedList<>();
 
         MyRandom r = new MyRandom(new Random());
 
@@ -52,10 +59,13 @@ public class SimulatedAnnealing {
                 System.arraycopy(current, 0, best, 0, dimension);
             }
 
-            double[] temp = new double[dimension];
-            System.arraycopy(best, 0, temp, 0, dimension);
+            double[] currentArr = new double[dimension];
+            System.arraycopy(current, 0, currentArr, 0, dimension);
+            currents.add(currentArr);
 
-            values.add(temp);
+            double[] bestArr = new double[dimension];
+            System.arraycopy(best, 0, bestArr, 0, dimension);
+            bests.add(bestArr);
         }
     }
 }
