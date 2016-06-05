@@ -6,7 +6,9 @@ import org.apache.commons.lang.ArrayUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -86,12 +88,12 @@ public class FunctionPanel {
                                     bestsSeries.add(i, item.getFunction().f(bests.poll()));
                                 }
 
-                                XYSeries currnentsSeries = new XYSeries("Obecny");
-                                Queue<double[]> currents = sa.getCurrents();
-
-                                for (int j = 0; j < currents.size(); j++) {
-                                    currnentsSeries.add(j, item.getFunction().f(currents.poll()));
-                                }
+//                                XYSeries currnentsSeries = new XYSeries("Obecny");
+//                                Queue<double[]> currents = sa.getCurrents();
+//
+//                                for (int j = 0; j < currents.size(); j++) {
+//                                    currnentsSeries.add(j, item.getFunction().f(currents.poll()));
+//                                }
 
                                 XYSeriesCollection dataset = new XYSeriesCollection();
                                 dataset.addSeries(bestsSeries);
@@ -107,6 +109,13 @@ public class FunctionPanel {
                                         true,
                                         false
                                 );
+
+                                XYPlot plot = chart.getXYPlot();
+                                NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+                                if (res > 0)
+                                    yAxis.setRange(0, res + 10);
+                                else
+                                    yAxis.setRange(res, 10);
 
                                 ChartFrame chartFrame = new ChartFrame("Wykres zbieżności", chart, true);
                                 chartFrame.setExtendedState(chartFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);

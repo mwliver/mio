@@ -22,7 +22,6 @@ public class Application extends JFrame {
                         new ComboboxItem(new BoothFunction(), "Funckcja Bootha", -10, 10),
                         new ComboboxItem(new MatyasFunction(), "Funkcja Matyasa", -10, 10),
                         new ComboboxItem(new BoothFunction(), "Funkcja Bukina", -15, 3),
-                        new ComboboxItem(new EasomFunction(), "Funkcja Easoma", -10, 10)
                 }
         );
 
